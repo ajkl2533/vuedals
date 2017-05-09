@@ -11,7 +11,7 @@ export default {
                 title: null,
                 dismisable: true,
                 name: '',
-                size: 'md',
+                size: '',
                 onClose() {},
                 onDismiss() {}
             };
@@ -117,11 +117,11 @@ export default {
 
 <template>
 <transition tag="div" name="vuedal">
-    <div class="vuedals" v-show="vuedals.length">
-        <div class="vuedal" v-for="(vuedal, index) in vuedals" :key="vuedal" :class="getCssClasses(index)">
-            <header v-if="vuedal.title || vuedal.dismisable">
-                <span class="title">{{ vuedal.title }}</span>
-                <span @click="dismiss()" v-if="vuedal.dismisable" class="close">&times;</span>
+    <div class="reveal-overlay vuedals" v-show="vuedals.length">
+        <div class="reveal content-box vuedal" v-for="(vuedal, index) in vuedals" :key="vuedal" :class="getCssClasses(index)">
+            <button @click.prevent="dismiss()" v-if="vuedal.dismisable" class="close-button">&times;</button>
+            <header class="content-box__header" v-if="vuedal.title">
+                <h1 class="content-box__title">{{ vuedal.title }}</h1>
             </header>
 
             <component :is="vuedal.component" :props="vuedal.props"></component>
@@ -130,76 +130,8 @@ export default {
 </transition>
 </template>
 
-<style lang="sass">
-
-.vuedals {
-    background-color: rgba(0,0,0,.5);
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 1050;
-    overflow-x: hidden;
-    overflow-y: auto;
-    perspective: 500px;
-    transition: opacity .4s ease;
-}
-
-.vuedal {
-    background: #FFF;
-    box-shadow: 3px 5px 20px #333;
-    padding: 20px;
-    margin: 30px 0;
-    transition: all 0.6s ease;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    will-change: transform;
-    width: 650px;
-
-    &.xl { width: 1024px; }
-
-    &.lg { width: 850px; }
-
-    &.sm { width: 550px; }
-
-    &.xs { width: 350px; }
-
-    &.disabled {
-        opacity: 0.2;
-
-        &::after {
-            background: transparent;
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 100;
-        }
+<style lang="css">
+    .vuedal.disabled {
+        display: none;
     }
-
-    header {
-        border-bottom: 1px solid #EEE;
-        min-height: 32px;
-        margin-bottom: 20px;
-
-        .title { font-size: 21px; font-weight: 100;}
-
-        .close { float: right; font-size: 26px; font-weight: 100; line-height: 21px; cursor: pointer; }
-    }
-}
-
-.vuedal-enter,
-.vuedal-leave-active {
-    opacity: 0;
-}
-
-.vuedal-enter .vuedal,
-.vuedal-leave-active .vuedal {
-    opacity: 0;
-    transform: translateX(-50%) translateY(-30px) scale(0.95);
-}
 </style>

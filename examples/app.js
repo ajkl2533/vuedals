@@ -28,7 +28,7 @@ const Sample = {
                 <h4>Sample Component</h4>
             </p>
             <p>
-                <span class="btn btn-primary" @click="openNewModal()">Open a Modal from a component</span>
+                <span class="button" @click="openNewModal()">Open a Modal from a component</span>
             </p>
         </div>`
 }
@@ -49,10 +49,12 @@ const ModalComponent1 = {
         }
     },
 
-    template: `<div>
+    template: `
+     
+<div>
         <p>This is a component inside the modal, you can pass some props by using a "props" options.</p>
         <blockquote>{{ props.example }}</blockquote>
-        <span class="btn btn-primary" @click="openModal()">Open another modal</span>
+        <span class="button" @click="openModal()">Open another modal</span>
     </div>`
 };
 
@@ -82,8 +84,8 @@ const ModalComponent2 = {
         </p>
 
         <p class="text-right">
-            <span class="btn btn-primary" @click="openModal()">Another modal?</span>
-            <span class="btn btn-default" @click="closeModal()">Close</span>
+            <span class="button" @click="openModal()">Another modal?</span>
+            <span class="button alert" @click="closeModal()">Close</span>
         </p>
     </div>`
 };
@@ -103,7 +105,7 @@ const ModalComponent3 = {
     template: `<div>
         <h3>INCEPTION</h3>
         <p class="text-right">
-            <span class="btn btn-default" @click="close()">Close</span>
+            <span class="button alert" @click="close()">Close</span>
         </p>
     </div>`
 };
@@ -134,7 +136,7 @@ new Vue({
     template: `<div>
         <p>
             <h3>Hello! You can open a new modal window if you like!</h3>
-            <span class="btn btn-primary" @click="openModal()">New Modal</span>
+            <span class="button" @click="openModal()">New Modal</span>
         </p>
 
         <sample></sample>
